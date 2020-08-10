@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
 
     mkdir -p $out/bin
     makeWrapper $lib/main.sh $out/bin/${pname} \
-      --prefix PATH : '${makeBinPath [ coreutils gawk gnugrep gnused jq nix git ]}'
+      --prefix PATH : '${makeBinPath [ coreutils gawk gnugrep gnused jq git ]}' \
+      --suffix PATH : ${makeBinPath [ nix ]}
 
     substitute src/tests.sh $lib/tests.sh \
       --subst-var-by bin $out/bin
